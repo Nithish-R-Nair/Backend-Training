@@ -19,7 +19,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
     "build": "rm -rf dist && npx tsc",
-    "start-server": "npx tsc && node dist/app.js",
+    "start-server": "npm run build && npx tsc && node dist/app.js",
     "migration:create": "npm run build && npx typeorm migration:create",
     "migration:generate": "npm run build && npx typeorm migration:generate -d dist/db/data-source.js",
     "migration:run": "npm run build && npx typeorm migration:run -d dist/db/data-source.js",

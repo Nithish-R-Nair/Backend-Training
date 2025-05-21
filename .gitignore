@@ -136,5 +136,5 @@ dist
 .pnp.*
 
 # Code Details folder and text files
-Code_Details/*
+code_details/
 *.txt

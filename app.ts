@@ -2,8 +2,7 @@ import express from "express";
 import employeeRouter from "./routes/employee.route";
 import loggerMiddleware from "./middlewares/loggerMiddleware";
 import dataSource from "./db/data-source";
-
-const { Client } = require('pg');
+import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
 
 const server = express();
 server.use(express.json());
@@ -15,6 +14,8 @@ server.get("/", (req, res) => {
   console.log(req.url);
   res.status(200).send("Hello world typescript");
 });
+
+server.use(errorHandlerMiddleware);
 
 (async () => {
   try {

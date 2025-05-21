@@ -1,5 +1,6 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, OneToOne } from "typeorm";
 import AbstractEntity from "./abstract.entity";
+import Employee from "./employee.entity";
 
 @Entity()
 class Address extends AbstractEntity 
@@ -9,6 +10,9 @@ class Address extends AbstractEntity
 
     @Column()
     pincode: string;
+
+    @OneToOne(() => Employee, (employee) => employee.address)
+    employee: Employee;
 }
 
 export default Address;

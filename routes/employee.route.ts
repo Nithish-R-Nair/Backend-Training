@@ -2,8 +2,8 @@ import express from "express";
 import dataSource from "../db/data-source";
 import Employee from "../entities/employee.entity";
 import EmployeeRepository from "../repositories/employee.repository";
-import EmployeeController from "../controllers/employee.controller";
 import EmployeeService from "../services/employee.service";
+import EmployeeController from "../controllers/employee.controller";
 
 
 const employeeRouter = express.Router();
