@@ -1,7 +1,7 @@
 import express from "express";
-import employeeRouter from "./employee_router";
+import employeeRouter from "./routes/employee.route";
 import loggerMiddleware from "./loggerMiddleware";
-import dataSource from "./data-source";
+import dataSource from "./db/data-source";
 
 const { Client } = require('pg');
 
@@ -25,6 +25,6 @@ server.get("/", (req, res) => {
     process.exit(1);
   }
   server.listen(3000, () => {
-    console.log("Server listening on port 3000");
+    console.log("Server running on port http://localhost:3000");
   });
 })();

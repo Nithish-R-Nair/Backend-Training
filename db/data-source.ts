@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
-import Employee from "./employee.entity";
+import Employee from "../entities/employee.entity";
 
 const dataSource = new DataSource({
     type: "postgres",
