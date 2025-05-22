@@ -3,7 +3,8 @@ import HttpException from "../exceptions/httpException";
 import EmployeeService from "./employee.service";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET, JWT_VALIDITY } from "../utils/constants";
+import "dotenv/config";
+
 
 class AuthService
 {
@@ -27,7 +28,7 @@ class AuthService
             email: employee.email,
             role: employee.role
         };
-        const token = jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_VALIDITY });
+        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: process.env.JWT_VALIDITY });
         return {
             tokenType: "Bearer",
             accesToken: token

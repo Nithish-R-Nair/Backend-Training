@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import HttpException from "../exceptions/httpException";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../utils/constants";
 import { JwtPayload } from "../dto/jwt-payload";
+import "dotenv/config";
 
 const getToken = (req: Request): string => {
     const token = req.headers.authorization;
@@ -19,7 +19,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     if(!token)
         throw new HttpException(401, "Not authorized");
     try {
-        const payload = jwt.verify(token, JWT_SECRET) as JwtPayload;
+        const payload = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
         req.user = payload;
     } catch (error) {
         throw new HttpException(401, "Invalid or expired token");
