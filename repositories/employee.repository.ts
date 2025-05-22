@@ -28,6 +28,14 @@ class EmployeeRepository
         });
     }
 
+    async findOneByEmail(email: string): Promise <Employee | null>
+    {
+        return this.repository.findOne({
+            where: { email },
+            relations: { address: true }
+        });
+    }
+
     async update(id: number, employee: Employee): Promise<void> 
     {
         await this.repository.save({ id, ...employee });
@@ -35,9 +43,8 @@ class EmployeeRepository
 
     async delete(employee: Employee): Promise<void> 
     {
-        // using "delete" doesnot cascade the deletion to the related tables (here "Address")
-        // Hence remove is used
-        await this.repository.remove(employee);             
+        await this.repository.softRemove(employee);             
+        // await this.repository.delete({ id });             
     }
 }
 

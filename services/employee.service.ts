@@ -1,7 +1,8 @@
+import { CreateAddressDto } from "../dto/create-address.dto";
 import Address from "../entities/address.entity";
-import Employee from "../entities/employee.entity";
+import Employee, { EmployeeRole } from "../entities/employee.entity";
 import EmployeeRepository from "../repositories/employee.repository";
-
+import bcrypt from "bcrypt";
 
 class EmployeeService
 {
@@ -10,13 +11,19 @@ class EmployeeService
 
     }
     
-    async createEmployee(email: string, name: string, age: number, address: Address): Promise<Employee>
+    async createEmployee(email: string, name: string, age: number, address: CreateAddressDto, password: string, role: EmployeeRole): Promise<Employee>
     {
+        const newAddress: Address = new Address();
+        newAddress.line1 = address.line1;
+        newAddress.pincode = address.pincode;
+        
         const newEmployee: Employee = new Employee();
         newEmployee.name = name;
         newEmployee.email = email;
         newEmployee.age = age;
-        newEmployee.address = address;
+        newEmployee.address = newAddress;
+        newEmployee.password = await bcrypt.hash(password, 10);
+        newEmployee.role = role;
         return this.employeeRepository.create(newEmployee);
     }
 
@@ -30,7 +37,12 @@ class EmployeeService
         return this.employeeRepository.findOneById(id);
     }
 
-    async updateEmployee(id: number, email: string, name: string, age: number, address: Address): Promise<void> 
+    async getEmployeeByEmail(email: string): Promise<Employee | null>
+    {
+        return this.employeeRepository.findOneByEmail(email);
+    }
+
+    async updateEmployee(id: number, email: string, name: string, age: number, address: CreateAddressDto): Promise<void> 
     {
         const existingEmployee: Employee = await this.employeeRepository.findOneById(id);
         if(existingEmployee)
@@ -39,7 +51,10 @@ class EmployeeService
             updatedEmployee.name = name;
             updatedEmployee.email = email;
             updatedEmployee.age = age;
-            updatedEmployee.address = address;
+            
+            updatedEmployee.address = new Address();
+            updatedEmployee.address.line1 = address.line1;
+            updatedEmployee.address.pincode = address.pincode;
             await this.employeeRepository.update(id, updatedEmployee);
         }
     }

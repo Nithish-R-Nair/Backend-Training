@@ -1,14 +1,20 @@
 import express from "express";
 import employeeRouter from "./routes/employee.route";
-import loggerMiddleware from "./middlewares/loggerMiddleware";
+import departmentRouter from "./routes/department.route";
+import loggerMiddleware from "./middlewares/logger.middleware";
 import dataSource from "./db/data-source";
-import { errorHandlerMiddleware } from "./middlewares/errorHandlerMiddleware";
+import { errorHandlerMiddleware } from "./middlewares/errorHandler.middleware";
+import authRouter from "./routes/auth.route";
+import authMiddleware from "./middlewares/auth.middleware";
+
 
 const server = express();
 server.use(express.json());
 server.use(loggerMiddleware);
 
-server.use("/employees", employeeRouter);
+server.use("/auth", authRouter);
+server.use("/employees", authMiddleware, employeeRouter);
+server.use("/departments", departmentRouter);
 
 server.get("/", (req, res) => {
   console.log(req.url);

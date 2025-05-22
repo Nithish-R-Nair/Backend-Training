@@ -2,6 +2,13 @@ import { Entity, Column, OneToOne, JoinColumn } from "typeorm";
 import AbstractEntity from "./abstract.entity";
 import Address from "./address.entity";
 
+export enum EmployeeRole {
+  UI = "UI",
+  UX = "UX",
+  DEVELOPER = "DEVELOPER",
+  HR = "HR"
+};
+
 @Entity()
 class Employee extends AbstractEntity
 {
@@ -14,12 +21,22 @@ class Employee extends AbstractEntity
   @Column()
   age: number;
 
-  @OneToOne(() => Address, (address) => address.employee, {
+  @OneToOne(() => Address, (address) => address.employee, { 
     cascade: true,
-    onDelete: "CASCADE"
+    onDelete: "CASCADE" 
   })
   @JoinColumn()
   address: Address;
+
+  @Column()
+  password: string;
+
+  @Column({
+    type: "enum",
+    enum: EmployeeRole,
+    default: EmployeeRole.DEVELOPER
+  })
+  role: EmployeeRole;
 }
   
 export default Employee;
