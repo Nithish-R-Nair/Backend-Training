@@ -43,8 +43,7 @@ class EmployeeRepository
 
     async delete(employee: Employee): Promise<void> 
     {
-        await this.repository.softRemove(employee);             
-        // await this.repository.delete({ id });             
+        await this.repository.remove(employee);             
     }
 }
 

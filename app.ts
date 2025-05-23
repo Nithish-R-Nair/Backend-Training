@@ -6,9 +6,11 @@ import dataSource from "./db/data-source";
 import { errorHandlerMiddleware } from "./middlewares/errorHandler.middleware";
 import authRouter from "./routes/auth.route";
 import authMiddleware from "./middlewares/auth.middleware";
-
+import { LoggerService } from "./services/logger.service";
 
 const server = express();
+const logger = LoggerService.getInstance("app()");
+
 server.use(express.json());
 server.use(loggerMiddleware);
 
@@ -26,12 +28,12 @@ server.use(errorHandlerMiddleware);
 (async () => {
   try {
     await dataSource.initialize();
-    console.log("Connected to DB");
+    logger.info("Connected to DB");
   } catch {
-    console.error("Failed to connect to DB");
+    logger.error("Failed to connect to DB");
     process.exit(1);
   }
   server.listen(3000, () => {
-    console.log("Server running on port http://localhost:3000");
+    logger.info("Server running on port http://localhost:3000");
   });
 })();
