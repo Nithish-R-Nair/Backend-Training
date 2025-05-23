@@ -11,7 +11,10 @@ class Address extends AbstractEntity
     @Column()
     pincode: string;
 
-    @OneToOne(() => Employee, (employee) => employee.address)
+    @OneToOne(() => Employee, (employee) => employee.address, {
+     onDelete: 'CASCADE'
+    })
+    @JoinColumn()
     employee: Employee;
 }
 

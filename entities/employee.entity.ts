@@ -21,12 +21,10 @@ class Employee extends AbstractEntity
   @Column()
   age: number;
 
-  @OneToOne(() => Address, (address) => address.employee, { 
-    cascade: true,
-    onDelete: "CASCADE" 
+  @OneToOne(() => Address, (address) => address.employee, {
+   cascade: true
   })
-  @JoinColumn()
-  address: Address;
+  address: Address
 
   @Column()
   password: string;
