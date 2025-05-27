@@ -10,4 +10,5 @@ const departmentRepository = new DepartmentRepository(dataSource.getRepository(D
 const departmentService = new DepartmentService(departmentRepository);
 const departmentController = new DepartmentController(departmentService, departmentRouter);
 
+export { departmentService };
 export default departmentRouter;

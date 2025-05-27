@@ -16,7 +16,10 @@ class EmployeeRepository
     async findMany(): Promise<Employee[]>
     {
         return this.repository.find({
-            relations: { address: true }            // Adds the address field from address table to the employee data on fetch
+            relations: { 
+                address: true,                  // Adds the address field from address table to the employee data on fetch
+                department: true                // Adds the department field from department table to the employee data on fetch
+            }            
         });
     }
 
@@ -24,7 +27,10 @@ class EmployeeRepository
     {
         return this.repository.findOne({
             where: { id },
-            relations: { address: true }
+            relations: { 
+                address: true,
+                department: true
+            }
         });
     }
 
@@ -32,7 +38,10 @@ class EmployeeRepository
     {
         return this.repository.findOne({
             where: { email },
-            relations: { address: true }
+            relations: { 
+                address: true, 
+                department: true 
+            }
         });
     }
 

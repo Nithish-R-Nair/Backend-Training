@@ -25,6 +25,13 @@ class DepartmentRepository
         });
     }
 
+    async findOneByName(name: string): Promise<Department>
+    {
+        return this.repository.findOne({
+            where: { name }
+        });
+    }
+
     async update(id: number, department: Department): Promise<void> 
     {
         await this.repository.save({ id, ...department });

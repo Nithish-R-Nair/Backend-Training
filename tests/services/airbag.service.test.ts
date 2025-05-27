@@ -1,4 +1,4 @@
-import { AirbagService, CrashSensor, AirbagIgniter, AirbagResult } from '../../services/airbag.service';
+import { AirbagService, CrashSensor, AirbagIgniter } from '../../services/airbag.service';
 import { when } from 'jest-when';
 import { mock, MockProxy } from 'jest-mock-extended';
 
